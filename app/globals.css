@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset para garantir que o body não force cores escuras */
+body {
+  background-color: #FDF5E6 !important;
+  color: #4A3728 !important;
+}
