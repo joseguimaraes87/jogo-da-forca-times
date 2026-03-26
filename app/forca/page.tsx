@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import confetti from 'canvas-confetti';
 
 // Lista de palavras (Times)
 const PALAVRAS = [
@@ -54,9 +55,21 @@ export default function Forca() {
     iniciarJogo();
   }, [iniciarJogo]);
 
-  // Lógica de vitória: todas as letras da palavra (exceto espaços) foram descobertas
+  // Lógica de vitória
   const venceu = palavra !== "" && palavra.split("").every((l) => l === " " || letrasUsadas.includes(l));
   const perdeu = erros >= maxErros;
+
+  // EFEITO DE CONFETE AO VENCER
+  useEffect(() => {
+    if (venceu) {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#5D4037', '#D2B48C', '#6B8E23'] // Cores combinando com seu tema
+      });
+    }
+  }, [venceu]);
 
   // Função para processar a letra escolhida
   const chutarLetra = useCallback((letra: string) => {
@@ -69,7 +82,7 @@ export default function Forca() {
     }
   }, [letrasUsadas, erros, palavra, venceu]);
 
-  // Escuta o teclado físico do computador
+  // Escuta o teclado físico
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => chutarLetra(e.key);
     window.addEventListener("keydown", handleKeyDown);
@@ -97,7 +110,7 @@ export default function Forca() {
             Adivinhe o Time
           </span>
 
-          {/* Visualização da Palavra (Tracinhos) */}
+          {/* Visualização da Palavra */}
           <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
             {palavra.split("").map((letra, i) => (
               <div 
@@ -150,13 +163,13 @@ export default function Forca() {
           ))}
         </div>
 
-        {/* Mensagens de Fim de Jogo e Botões de Ação */}
+        {/* Mensagens e Botões */}
         <div className="flex flex-col items-center gap-4 w-full">
           {(venceu || perdeu) && (
             <div className={`p-4 rounded-2xl font-bold text-center w-full animate-in fade-in zoom-in duration-300 ${
               venceu ? "bg-[#6B8E23]/20 text-[#3A4D13]" : "bg-[#CD5C5C]/20 text-[#8B0000]"
             }`}>
-              {venceu ? "🏆 Parabéns! Você acertou: " + palavra : `💀 Game Over! O time era: ${palavra}`}
+              {venceu ? " Parabéns! Você acertou: " + palavra : ` Game Over! O time era: ${palavra}`}
             </div>
           )}
           
@@ -167,7 +180,6 @@ export default function Forca() {
             {venceu || perdeu ? "Próxima Partida" : "Reiniciar Jogo"}
           </button>
 
-          {/* Botão para voltar à página inicial */}
           <Link href="/" className="w-full md:w-auto text-center">
             <button
               className="border-2 border-[#5D4037] text-[#5D4037] hover:bg-[#5D4037] hover:text-white px-12 py-3 rounded-full font-bold uppercase tracking-widest transition-all active:scale-95 w-full"
