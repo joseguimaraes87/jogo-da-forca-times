@@ -8,4 +8,5 @@
 body {
   background-color: #FDF5E6 !important;
   color: #4A3728 !important;
+  overflow-x: hidden; /* Evita scroll horizontal indesejado ao reduzir */
 }
