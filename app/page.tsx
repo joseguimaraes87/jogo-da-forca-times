@@ -23,7 +23,7 @@ export default function Home() {
           Estudante de Ciência da Computação
         </p>
 
-        {/* Retângulos de Informação Centralizados */}
+        {/* Retângulos de Informação */}
         <div className="w-full space-y-4 mb-10">
           
           <div className="bg-[#EEDC82]/10 p-4 rounded-2xl border border-[#D2B48C]/30 flex flex-col items-center justify-center">

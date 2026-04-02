@@ -101,7 +101,7 @@ export default function Forca() {
             Adivinhe o Time
           </span>
 
-          {/* PALAVRA RESPONSIVA */}
+          {/* PALAVRA */}
           <div className="flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-4 mb-10 max-w-full">
             {palavra.split("").map((letra, i) => (
               <div 
@@ -124,7 +124,7 @@ export default function Forca() {
           </div>
         </section>
 
-        {/* TECLADO RESPONSIVO */}
+        {/* TECLADO*/}
         <div className="flex flex-col gap-2 w-full items-center mb-8 max-w-md">
           {["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"].map((linha, idx) => (
             <div key={idx} className="flex gap-1 sm:gap-2 justify-center">
